@@ -116,3 +116,4 @@ object DevelopmentIndicators:
 
   def toDouble(value: String): Option[Double] =
     try Some(value.toDouble) catch case _ => None
+dddddd
