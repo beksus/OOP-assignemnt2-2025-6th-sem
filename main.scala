@@ -15,7 +15,7 @@ case class DataRow(
 object DevelopmentIndicators:
 
   def main(args: Array[String]): Unit =
-    val filename = "src/main/resources/Global_Development_Indicators_2000_2020.csv"
+    val filename = "Global_Development_Indicators_2000_2020.csv"
 
     val data = Using.resource(Source.fromFile(filename)) { source =>
       val lines = source.getLines().toList
@@ -41,7 +41,7 @@ object DevelopmentIndicators:
 
     // Question 1: Highest Life Expectancy
     val highestLife = data
-      .filter(_.lifeExpectancy.isDefined)
+      .filter(row => row.lifeExpectancy.exists(_ < 100)) // exclude invalid 100.0 values
       .maxBy(_.lifeExpectancy.get)
     println("""
 1. Which country had achieved the highest life expectancy in the dataset and in which year?
@@ -65,7 +65,9 @@ object DevelopmentIndicators:
         val avgHealth = valid.map(_.healthcareCapacity.get).sum / valid.size
         val avgRatio = valid.map(_.healthDevRatio.get).sum / valid.size
 
-        (country, avgLife + avgSchool + avgHealth + avgRatio - avgMortality)
+        // Normalize the components into a 0-1 scale if needed to avoid large numbers
+        val score = avgLife + avgSchool + avgHealth + avgRatio - avgMortality
+        (country, score)
       else (country, Double.MinValue)
 
     val bestHealthCountry = healthScores.maxBy(_._2)
