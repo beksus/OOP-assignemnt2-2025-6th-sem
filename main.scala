@@ -15,7 +15,7 @@ case class DataRow(
 object DevelopmentIndicators:
 
   def main(args: Array[String]): Unit =
-    val filename = "Global_Development_Indicators_2000_2020.csv"
+    val filename = "src/main/resources/Global_Development_Indicators_2000_2020.csv"
 
     val data = Using.resource(Source.fromFile(filename)) { source =>
       val lines = source.getLines().toList
