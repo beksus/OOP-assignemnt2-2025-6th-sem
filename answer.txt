@@ -10,3 +10,7 @@ Answer: France with composite score 649.34
 3. Which country had the highest loss of forest area from 2000 to 2020, and how much is the loss?
 -------------------------------------------------------------------------------------------
 Answer: Paraguay with 17.34% forest loss from 2000 to 2020
+
+
+
+src/main/resources/Global_Development_Indicators_2000_2020.csv
